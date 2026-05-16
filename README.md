@@ -18,26 +18,16 @@ Maybe you can mention me or this repo in the acknowledgements too
   
   
 <!-- Badges -->
-<p>
-  <a href="https://github.compkayee/VulkanOne/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/pkayee/VulkanOne" alt="contributors" />
-  </a>
-  <a href="">
-    <img src="https://img.shields.io/github/last-commit/pkayee/VulkanOne" alt="last update" />
-  </a>
-  <a href="https://github.com/pkayee/VulkanOne/network/members">
-    <img src="https://img.shields.io/github/forks/pkayee/VulkanOne" alt="forks" />
-  </a>
-  <a href="https://github.com/pkayee/VulkanOne/stargazers">
-    <img src="https://img.shields.io/github/stars/pkayee/VulkanOne" alt="stars" />
-  </a>
-  <a href="https://github.com/pkayee/VulkanOne/issues/">
-    <img src="https://img.shields.io/github/issues/pkayee/VulkanOne" alt="open issues" />
-  </a>
-  <a href="https://github.com/pkayee/VulkanOne/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/pkayee/VulkanOne.svg" alt="license" />
-  </a>
-</p>
+<div align="center">
+
+[![contributors](https://img.shields.io/github/contributors/pkayee/VulkanOne)](https://github.com/pkayee/VulkanOne/graphs/contributors)
+[![last update](https://img.shields.io/github/last-commit/pkayee/VulkanOne)](https://github.com/pkayee/VulkanOne) 
+[![forks](https://img.shields.io/github/forks/pkayee/VulkanOne)](https://github.com/pkayee/VulkanOne/network/members) 
+[![stars](https://img.shields.io/github/stars/pkayee/VulkanOne)](https://github.com/pkayee/VulkanOne/stargazers) 
+[![open issues](https://img.shields.io/github/issues/pkayee/VulkanOne)](https://github.com/pkayee/VulkanOne/issues/) 
+[![license](https://img.shields.io/github/license/pkayee/VulkanOne.svg)](https://github.com/pkayee/VulkanOne/blob/master/LICENSE)
+
+</div>
    
 <h4>
     <a href="https://github.com/pkayee/VulkanOne/">Documentation</a>
