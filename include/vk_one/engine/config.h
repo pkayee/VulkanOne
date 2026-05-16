@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 
-namespace app {
+namespace vk_one {
     struct WindowConfig {
         static inline const std::string structName = "WindowConfig";
 

@@ -2,10 +2,10 @@
 
 #include <memory>
 #include <GLFW/glfw3.h>
-#include "application.h"
+#include <vk_one/app/application.h>
 
-namespace app {
-    void MainApplication::init() {
+namespace vk_one {
+    void Application::init() {
         ConfigManager configManager;
         WindowConfig config = configManager.parseJson(this->jsonFilePath);
 
@@ -13,7 +13,7 @@ namespace app {
         if (!this->mainWindow) { throw std::runtime_error("failed to create window "); }
     }
 
-    void MainApplication::run() {
+    void Application::run() {
         while (!mainWindow->windowShouldClose()) {
             glfwPollEvents();
 

@@ -1,9 +1,9 @@
 #include <iostream>
-#include "application.h"
+#include <vk_one/app/application.h>
 #include <exception>
 
 int main() {
-    app::MainApplication app{};
+    vk_one::Application app{};
     try {
         app.init();
         app.run();

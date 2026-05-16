@@ -1,14 +1,18 @@
 #pragma once
 
-#include "engine/window.h"
-#include "engine/config.h"
 #include <memory>
 
+#include <vk_one/engine/core/window.h>
+#include <vk_one/engine/config.h>
 
-
-namespace app {
-    class MainApplication {
+namespace vk_one {
+    class Application {
     public:
+        /* implement later
+        Application();
+        ~Application();
+        */
+
         std::string jsonFilePath = "src/engine/configs.json";
         void init();
         void run();

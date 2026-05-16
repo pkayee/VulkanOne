@@ -1,12 +1,13 @@
 #pragma once
 
 #include <string>
+
 #include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
 
 
 
-namespace app {
+namespace vk_one {
     struct WindowConfig;
     class Window {
     public:

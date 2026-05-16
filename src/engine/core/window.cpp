@@ -3,11 +3,11 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "window.h"
-#include "config.h"
+#include <vk_one/engine/core/window.h>
+#include <vk_one/engine/config.h>
 
 
-namespace app {
+namespace vk_one {
     Window::Window(const WindowConfig* config) : windowConfig(config){
         if (windowConfig) {
             std::cout << "Loaded name: '" << windowConfig->name << "'" << std::endl;

@@ -1,0 +1,8 @@
+//
+// Created by pkaye on 5/16/26.
+//
+
+#ifndef VULKANONE_MEMORY_ALLOCATOR_HPP
+#define VULKANONE_MEMORY_ALLOCATOR_HPP
+
+#endif //VULKANONE_MEMORY_ALLOCATOR_HPP
