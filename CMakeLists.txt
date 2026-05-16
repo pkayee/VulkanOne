@@ -9,21 +9,19 @@ include(cmake_modules/compile_shaders.cmake)
 add_subdirectory(include/vk_one)
 
 
-add_executable(vk_one_engine src/main.cpp
-        src/engine/renderer/pipeline.cpp
-        include/vk_one/engine/renderer/pipeline.hpp
-        include/vk_one/engine/core/instance.hpp
-        src/engine/core/instance.cpp
-        include/vk_one/engine/renderer/memory_allocator.hpp
-        src/engine/renderer/memory_allocator.cpp)
+add_executable(vk_one_engine src/main.cpp)
 
 target_sources(vk_one_engine
         PRIVATE
+        # src/app
         src/app/application.cpp
+
+        # src/engine/core
         src/engine/core/window.cpp
-        include/vk_one/engine/core/window.h
-        include/vk_one/app/application.h
-        include/vk_one/engine/config.h
+
+        # src/engine/renderer
+        src/engine/renderer/pipeline.cpp
+        src/engine/renderer/memory_allocator.cpp
 )
 
 
