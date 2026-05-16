@@ -1,10 +1,6 @@
 <!--
-Hey, thanks for using the awesome-readme-template template.  
-If you have any enhancements, then fork this project and create a pull request 
-or just open an issue with the label "enhancement".
-
-Don't forget to give this project a star for additional support ;)
-Maybe you can mention me or this repo in the acknowledgements too
+checkout the read me template i used 
+https://github.com/Louis3797/awesome-readme-template/tree/main
 -->
 <div align="center">
 <br>
