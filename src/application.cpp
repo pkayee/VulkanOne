@@ -1,11 +1,9 @@
-module;
+
 
 #include <memory>
 #include <GLFW/glfw3.h>
-
-module application;
-import window;
-import config;
+#include "application.h"
+#include "config.h"
 
 namespace app {
     void MainApplication::init() {

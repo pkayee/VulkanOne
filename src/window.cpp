@@ -1,10 +1,8 @@
-module;
 
-#include <string>
 #include <GLFW/glfw3.h>
 #include <stdexcept>
+#include "window.h"
 
-module window;
 
 
 namespace app {

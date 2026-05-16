@@ -1,13 +1,11 @@
-module;
+#pragma once
+
 
 #include <string>
 #include <nlohmann/json.hpp>
 #include <fstream>
 
-export module config;
-
-
-export namespace app {
+namespace app {
     struct WindowConfig {
         static inline const std::string structName = "WindowConfig";
 
@@ -27,7 +25,7 @@ export namespace app {
         WindowConfig parseJson(std::string filePath) {
             std::ifstream file(filePath);
 
-            if (!file.is_open()) { throw std::runtime_error("could not open json"); }
+            if (!file.is_open()) { throw std::runtime_error("Could not open json! Check if Working dir is correct!"); }
 
             nlohmann::json data = nlohmann::json::parse(file);
             WindowConfig windowConfig;

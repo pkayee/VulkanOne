@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.28)
 project(vulkanone)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -7,14 +7,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(vulkanone src/main.cpp)
 
 target_sources(vulkanone
-        PUBLIC
-        FILE_SET CXX_MODULES FILES
-        src/application.cppm
-        src/window.cppm
-        src/config.cppm
         PRIVATE
         src/application.cpp
         src/window.cpp
+        src/window.h
+        src/application.h
+        src/config.h
 )
 
 
