@@ -51,8 +51,13 @@ Maybe you can mention me or this repo in the acknowledgements too
   📞Contact Me
 </h3>
  
-  [![My Discord (350811107704963083)](https://img.shields.io/badge/My-Discord-%235865F2.svg)](https://discord.com/users/350811107704963083)
-  usr:juspkaye
+<p align="center">
+  <a href="https://discord.com/users/350811107704963083">
+    <img src="https://img.shields.io/badge/My-Discord-%235865F2.svg" />
+  </a>
+
+
+  
   
 </h4>
 </div>
