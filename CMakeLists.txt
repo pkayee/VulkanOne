@@ -7,24 +7,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(cmake_modules/compile_shaders.cmake)
 
 add_subdirectory(include/vk_one)
+set(SOURCE_DIRS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/app"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/core"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/renderer"
+)
+set(SOURCE_FILES "")
 
 
 add_executable(vk_one_engine src/main.cpp)
 
-target_sources(vk_one_engine
-        PRIVATE
-        # src/app
-        src/app/application.cpp
+foreach (dir IN LISTS SOURCE_DIRS)
+    file(GLOB local_files CONFIGURE_DEPENDS "${dir}/*.cpp")
 
-        # src/engine/core
-        src/engine/core/window.cpp
+    foreach (file IN LISTS local_files)
+        list(APPEND SOURCE_FILES "${file}")
+    endforeach ()
+endforeach ()
 
-        # src/engine/renderer
-        src/engine/renderer/pipeline.cpp
-        src/engine/renderer/memory_allocator.cpp
-)
-
-
+target_sources(vk_one_engine PRIVATE ${SOURCE_FILES})
 
 find_package(Vulkan REQUIRED)
 find_package(glfw3 REQUIRED)
