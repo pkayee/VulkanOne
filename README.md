@@ -56,6 +56,10 @@ Maybe you can mention me or this repo in the acknowledgements too
     <img src="https://img.shields.io/badge/My-Discord-%235865F2.svg" />
   </a>
 
+  <a href="mailto:pkayee@proton.me">
+  <img src="https://img.shields.io/badge/email-pkayee%40proton.me-blue" alt="Email Badge">
+</a>
+
 
   
   
