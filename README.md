@@ -50,15 +50,15 @@ Maybe you can mention me or this repo in the acknowledgements too
 <h3>
   📞Contact Me
 </h3>
- 
-<p align="center">
-  <a href="https://discord.com/users/350811107704963083">
-    <img src="https://img.shields.io/badge/My-Discord-%235865F2.svg" />
-  </a>
 
-  <a href="mailto:pkayee@proton.me">
-  <img src="https://img.shields.io/badge/email-pkayee%40proton.me-blue" alt="Email Badge">
-</a>
+
+<div align="center">
+
+[![Discord](https://img.shields.io/badge/My-Discord-%235865F6.svg)](https://discord.com/users/35081110770496308)
+&nbsp;
+[![Email](https://img.shields.io/badge/email-pkayee%40proton.me-blue)](mailto:pkayee@proton.me)
+
+</div>
 
 
   
