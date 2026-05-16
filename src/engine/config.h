@@ -11,11 +11,13 @@ namespace app {
 
         int width;
         int height;
+        bool resizable;
         std::string name;
 
-        friend void from_json(const nlohmann::json j, WindowConfig& c) {
+        friend void from_json(const nlohmann::json& j, WindowConfig& c) {
             j.at("width").get_to(c.width);
             j.at("height").get_to(c.height);
+            j.at("resizable").get_to(c.resizable);
             j.at("name").get_to(c.name);
         }
     };

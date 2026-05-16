@@ -1,12 +1,17 @@
 
 #include <GLFW/glfw3.h>
 #include <stdexcept>
-#include "window.h"
+#include <iostream>
 
+#include "window.h"
+#include "config.h"
 
 
 namespace app {
-    Window::Window(int w, int h, std::string name) : WIDTH{w}, HEIGHT{h}, windowName{name} {
+    Window::Window(const WindowConfig* config) : windowConfig(config){
+        if (windowConfig) {
+            std::cout << "Loaded name: '" << windowConfig->name << "'" << std::endl;
+        }
         initWindow();
     }
 
@@ -19,9 +24,9 @@ namespace app {
         if (!glfwInit()) { throw std::runtime_error("glfw could not be initialized"); }
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, windowConfig->resizable);
 
-        this->window = glfwCreateWindow(WIDTH, HEIGHT, windowName.c_str(), nullptr, nullptr);
+        this->window = glfwCreateWindow(windowConfig->width, windowConfig->height, windowConfig->name.c_str(), nullptr, nullptr);
 
         if (!this->window) { throw std::runtime_error("failed to create window"); }
     }

@@ -7,10 +7,10 @@
 
 
 namespace app {
-
+    struct WindowConfig;
     class Window {
     public:
-        Window(int w, int h, std::string name);
+        Window(const WindowConfig* config);
         ~Window();
 
         Window(const Window &) = delete;
@@ -18,12 +18,9 @@ namespace app {
 
         bool windowShouldClose() { return glfwWindowShouldClose(window); };
     private:
+        const WindowConfig* windowConfig;
         void initWindow();
 
-        const int32_t WIDTH;
-        const int32_t HEIGHT;
-
-        std::string windowName;
         GLFWwindow* window;
     };
 }

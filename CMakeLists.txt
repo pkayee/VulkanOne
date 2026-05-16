@@ -9,10 +9,10 @@ add_executable(vulkanone src/main.cpp)
 target_sources(vulkanone
         PRIVATE
         src/application.cpp
-        src/window.cpp
-        src/window.h
+        src/engine/window.cpp
+        src/engine/window.h
         src/application.h
-        src/config.h
+        src/engine/config.h
 )
 
 
