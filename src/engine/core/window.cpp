@@ -9,9 +9,10 @@
 
 namespace vk_one {
     Window::Window(const WindowConfig* config) : windowConfig(config){
-        if (windowConfig) {
-            std::cout << "Loaded name: '" << windowConfig->name << "'" << std::endl;
-        }
+        #ifdef DEBUG
+            std::cout << "Loaded window:'" << windowConfig->name << "'"
+            << " Size:" << windowConfig->width << "x" << windowConfig->height;
+        #endif
         initWindow();
     }
 
