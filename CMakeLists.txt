@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(vk_one_engine)
+project(VulkanOne)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,7 +15,7 @@ set(SOURCE_DIRS
 set(SOURCE_FILES "")
 
 
-add_executable(vk_one_engine src/main.cpp)
+add_executable(VulkanOne src/main.cpp)
 
 foreach (dir IN LISTS SOURCE_DIRS)
     file(GLOB local_files CONFIGURE_DEPENDS "${dir}/*.cpp")
@@ -25,14 +25,14 @@ foreach (dir IN LISTS SOURCE_DIRS)
     endforeach ()
 endforeach ()
 
-target_sources(vk_one_engine PRIVATE ${SOURCE_FILES})
+target_sources(VulkanOne PRIVATE ${SOURCE_FILES})
 
 find_package(Vulkan REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 find_package(nlohmann_json REQUIRED)
 
-target_link_libraries(vk_one_engine
+target_link_libraries(VulkanOne
         PRIVATE
         vk_one
         Vulkan::Vulkan
@@ -41,6 +41,7 @@ target_link_libraries(vk_one_engine
         nlohmann_json::nlohmann_json
 )
 
+target_compile_definitions(VulkanOne PUBLIC DEBUG)
 
 
 

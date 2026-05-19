@@ -2,7 +2,6 @@
 
 #include <string>
 
-#include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
 
 
@@ -17,11 +16,13 @@ namespace vk_one {
         Window(const Window &) = delete;
         Window operator&(const Window &) = delete;
 
-        bool windowShouldClose() { return glfwWindowShouldClose(window); };
+        bool windowShouldClose() { return glfwWindowShouldClose(m_window); }
+        GLFWwindow* handle() { return m_window; }
+
     private:
-        const WindowConfig* windowConfig;
+        const WindowConfig* m_windowConfig;
         void initWindow();
 
-        GLFWwindow* window;
+        GLFWwindow* m_window;
     };
 }
