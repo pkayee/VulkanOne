@@ -19,8 +19,7 @@ namespace vk_one {
 
 
     private:
-        std::unique_ptr<Window> mainWindow;
-        WindowConfig windowConfig;
+        std::unique_ptr<Window> m_mainWindow;
     };
 
 }

@@ -6,7 +6,3 @@ target_include_directories(vk_one
         $<INSTALL_INTERFACE:include>
 )
 
-target_precompile_headers(vk_one
-        PRIVATE
-        engine/renderer/renderer_pch.h
-)

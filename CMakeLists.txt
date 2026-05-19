@@ -14,7 +14,6 @@ set(SOURCE_DIRS
 )
 set(SOURCE_FILES "")
 
-
 add_executable(VulkanOne src/main.cpp)
 
 foreach (dir IN LISTS SOURCE_DIRS)
@@ -41,8 +40,13 @@ target_link_libraries(VulkanOne
         nlohmann_json::nlohmann_json
 )
 
-target_compile_definitions(VulkanOne PUBLIC DEBUG)
+target_precompile_headers(VulkanOne PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/vk_one/engine/renderer/pch.h)
 
+target_compile_definitions(VulkanOne PRIVATE
+        CONFIG_PATH="${CMAKE_SOURCE_DIR}/src/engine/configs.json"
+)
+
+target_compile_definitions(VulkanOne PUBLIC DEBUG)
 
 
 

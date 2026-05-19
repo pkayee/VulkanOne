@@ -6,15 +6,18 @@
 
 namespace vk_one {
     void Application::init() {
-        ConfigManager configManager;
-        WindowConfig config = configManager.parseJson(this->jsonFilePath);
+        auto& config = ConfigManager::instance();
+        config.loadFromFile(CONFIG_PATH);
 
-        this->mainWindow = std::make_unique<Window>(&config);
-        if (!this->mainWindow) { throw std::runtime_error("failed to create window "); }
-    }
+        m_mainWindow = std::make_unique<Window>(
+            config.get<int>("window_config.width"),
+            config.get<int>("window_config.height"),
+            config.get<bool>("window_config.resizable"),
+            config.get<std::string>("window_config.name")
+        );    }
 
     void Application::run() {
-        while (!mainWindow->windowShouldClose()) {
+        while (!m_mainWindow->windowShouldClose()) {
             glfwPollEvents();
 
         }

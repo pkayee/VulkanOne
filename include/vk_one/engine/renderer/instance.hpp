@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vk_one/engine/renderer/renderer_pch.h>
+#include <vk_one/engine/renderer/pch.h>
 #include <vk_one/engine/core/window.h>
 
 namespace vk_one {
@@ -18,7 +18,7 @@ namespace vk_one {
         VkSurfaceKHR surface() { return  m_surface; }
     private:
         void createInstance();
-        void setupDebugInstance();
+        void setupDebugMessenger();
         void createSurface();
         bool checkValidationLayerSupport();
         void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);

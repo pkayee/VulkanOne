@@ -7,13 +7,16 @@
 
 
 namespace vk_one {
-    Window::Window(const WindowConfig* config) : m_windowConfig(config){
-        #ifdef DEBUG
-            std::cerr << "\033[33m"
-            << "Loaded window:'" << m_windowConfig->name << "'"
-            << " Size:" << m_windowConfig->width << "x" << m_windowConfig->height
-            << "\033[0m" << "\n";
-        #endif
+    Window::Window(int width, int height, bool resizable, const std::string &name)
+    : m_width(width), m_height(height), m_resizable(resizable), m_name(name) {
+    #ifdef DEBUG
+        Log::print("[===LOADING WINDOW===]");
+
+        Log::print(std::format(
+            "Loaded window: '{}' Size: {}x{}",
+            m_name, m_width, m_height),
+        Log::Color::BLUE);
+    #endif
         initWindow();
     }
 
@@ -26,9 +29,9 @@ namespace vk_one {
         if (!glfwInit()) { throw std::runtime_error("glfw could not be initialized"); }
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-        glfwWindowHint(GLFW_RESIZABLE, m_windowConfig->resizable);
+        glfwWindowHint(GLFW_RESIZABLE, m_resizable);
 
-        this->m_window = glfwCreateWindow(m_windowConfig->width, m_windowConfig->height, m_windowConfig->name.c_str(), nullptr, nullptr);
+        this->m_window = glfwCreateWindow(m_width, m_height, m_name.c_str(), nullptr, nullptr);
 
         if (!this->m_window) { throw std::runtime_error("failed to create window"); }
     }

@@ -1,5 +1,25 @@
 {
-  "WindowConfig": {
+  "engine_config": {
+    "api": "Vulkan",
+    "version": {
+      "variant": 0,
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+
+  "application_config": {
+    "name": "VulkanApplication",
+    "version": {
+      "variant": 0,
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+
+  "window_config": {
     "width": 800,
     "height": 600,
     "resizable": true,

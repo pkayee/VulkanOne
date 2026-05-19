@@ -1,46 +1,92 @@
 #pragma once
 
 
-#include <string>
+#include <vk_one/engine/utils.hpp>
 #include <nlohmann/json.hpp>
-#include <fstream>
 
 namespace vk_one {
-    struct WindowConfig {
-        static inline const std::string structName = "WindowConfig";
-
-        int width;
-        int height;
-        bool resizable;
-        std::string name;
-
-        friend void from_json(const nlohmann::json& j, WindowConfig& c) {
-            j.at("width").get_to(c.width);
-            j.at("height").get_to(c.height);
-            j.at("resizable").get_to(c.resizable);
-            j.at("name").get_to(c.name);
-        }
-    };
 
     class ConfigManager {
     public:
-        WindowConfig parseJson(std::string filePath) {
+        using ConfigValue = std::variant<int, float, bool, std::string>;
+
+        static ConfigManager& instance() {
+            static ConfigManager s_instance;
+            return s_instance;
+        }
+
+        ConfigManager(const ConfigManager&) = delete;
+        ConfigManager& operator=(const ConfigManager&) = delete;
+
+        bool loadFromFile(const std::string& filePath) {
             std::ifstream file(filePath);
+            if (!file.is_open()) {
+                std::cerr << "Config Error: Could not open " << filePath << "\n";
+                return false;
+            }
 
-            if (!file.is_open()) { throw std::runtime_error("Could not open json! Check if Working dir is correct!"); }
+            nlohmann::json rootJson;
+            try {
+                file >> rootJson;
+            } catch (const nlohmann::json::parse_error& e) {
+                std::cerr << "Config JSON Parse Error: " << e.what() << "\n";
+                return false;
+            }
 
-            nlohmann::json data = nlohmann::json::parse(file);
-            WindowConfig windowConfig;
+            auto flattened = rootJson.flatten();
+            m_settings.clear();
 
-            loadConfig(data, windowConfig);
-            return windowConfig;
+            #ifdef DEBUG
+            Log::print("[===LOADING CONFIGS===]");
+            #endif
+            for (auto& [key, value] : flattened.items()) {
+
+                std::string cleanKey = key.substr(1);
+                std::replace(cleanKey.begin(), cleanKey.end(), '/', '.');
+
+                if (value.is_number_integer())      m_settings[cleanKey] = value.get<int>();
+                else if (value.is_number_float())   m_settings[cleanKey] = value.get<float>();
+                else if (value.is_boolean())        m_settings[cleanKey] = value.get<bool>();
+                else if (value.is_string())         m_settings[cleanKey] = value.get<std::string>();
+
+                #ifdef DEBUG
+                Log::colourKeys(cleanKey);
+                #endif
+            }
+            return true;
+        }
+
+        bool has(const std::string& key) const {
+            return m_settings.contains(key);
+        }
+
+
+        // honestly will refactor later lol
+        template<typename T>
+        T get(const std::string& key, std::optional<T> defaultValue = std::nullopt) const {
+
+            if (!has(key)) {
+                if (defaultValue.has_value()) return defaultValue.value();
+                throw std::runtime_error("Config: key not found '" + key + "'");
+            }
+
+            auto it = m_settings.find(key);
+
+            if (!std::holds_alternative<T>(it->second)) {
+                if (defaultValue.has_value()) {
+                    std::cerr << "Config: type mismatch for '" << key << "', using default\n";
+                    return defaultValue.value();
+                }
+
+                throw std::runtime_error("Config: type mismatch for '" + key + "'");
+            }
+
+            return std::get<T>(it->second);
         }
 
     private:
-        template<typename T>
-        void loadConfig(const nlohmann::json& data, T& configStruct ) {
-            auto const& section = data.at(T::structName);
-            configStruct = section.template get<T>();
-        }
+        ConfigManager() = default;
+        std::unordered_map<std::string, ConfigValue> m_settings;
     };
+
 }

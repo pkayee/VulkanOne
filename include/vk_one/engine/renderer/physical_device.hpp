@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vk_one/engine/renderer/renderer_pch.h>
+#include <vk_one/engine/renderer/pch.h>
 #include <vk_one/engine/core/window.h>
 #include <vk_one/engine/renderer/physical_device.hpp>
 
@@ -20,12 +20,6 @@ namespace vk_one {
     };
 
     class PhysicalDevice {
-        #ifdef NDEBUG
-          const bool enableValidationLayers = false;
-        #else
-          const bool enableValidationLayers = true;
-        #endif
-
         PhysicalDevice(Window &window);
         ~PhysicalDevice();
 
