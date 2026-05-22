@@ -1,10 +1,20 @@
 {
   "engine_config": {
-    "api": "Vulkan",
+    "name": "VulkanOne",
     "version": {
       "variant": 0,
       "major": 1,
       "minor": 0,
+      "patch": 0
+    }
+  },
+
+  "api_config": {
+    "api": "Vulkan",
+    "api_version": {
+      "variant": 0,
+      "major": 1,
+      "minor": 4,
       "patch": 0
     }
   },

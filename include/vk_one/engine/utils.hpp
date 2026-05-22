@@ -1,6 +1,7 @@
 #pragma once
 
 
+
 #include <vk_one/engine/renderer/pch.h>
 
 namespace vk_one {
@@ -9,12 +10,6 @@ namespace vk_one {
 #else
     const bool enableValidationLayers = false;
 #endif
-
-    inline void VK_CHECK_SUCCESS(VkResult result, const char* message) {
-            if (result != VK_SUCCESS) {
-                throw std::runtime_error(message);
-            }
-    }
 
     class Log {
     public:
@@ -38,6 +33,17 @@ namespace vk_one {
 
         static void error(const std::string& msg, Color color = Color::RED) {
             std::cerr << resolveColor(color, msg) << "[ERROR] " << msg << RESET << "\n";
+        }
+
+        static void throwRuntimeError(
+            const std::string& msg, Color color = Color::RED,
+            const char* file = __builtin_FILE(),
+            int line = __builtin_LINE())
+        {
+            std::ostringstream errorString;
+            std::string err = std::format("[RUNTIME_ERROR] {}:{} ", file, line);
+            errorString << resolveColor(color, msg) << err << msg << RESET;
+            throw std::runtime_error(errorString.str());
         }
 
         static void colourKeys(const std::string& key, const std::string& value = "",
@@ -97,4 +103,10 @@ namespace vk_one {
             return COLORS[dist(rng)];
         }
     };
+
+    inline void VK_CHECK_SUCCESS(VkResult result, const char* message) {
+        if (result != VK_SUCCESS) {
+            Log::throwRuntimeError(message);
+        }
+    }
 }

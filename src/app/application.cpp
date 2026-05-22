@@ -14,12 +14,12 @@ namespace vk_one {
             config.get<int>("window_config.height"),
             config.get<bool>("window_config.resizable"),
             config.get<std::string>("window_config.name")
-        );    }
+        );
+    }
 
     void Application::run() {
         while (!m_mainWindow->windowShouldClose()) {
             glfwPollEvents();
-
         }
 
     }

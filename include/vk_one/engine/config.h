@@ -67,7 +67,7 @@ namespace vk_one {
 
             if (!has(key)) {
                 if (defaultValue.has_value()) return defaultValue.value();
-                throw std::runtime_error("Config: key not found '" + key + "'");
+                Log::throwRuntimeError("Config: key not found '" + key + "'");
             }
 
             auto it = m_settings.find(key);
@@ -78,7 +78,7 @@ namespace vk_one {
                     return defaultValue.value();
                 }
 
-                throw std::runtime_error("Config: type mismatch for '" + key + "'");
+                Log::throwRuntimeError("Config: type mismatch for '" + key + "'");
             }
 
             return std::get<T>(it->second);

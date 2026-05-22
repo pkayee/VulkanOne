@@ -26,13 +26,13 @@ namespace vk_one {
     }
 
     void Window::initWindow() {
-        if (!glfwInit()) { throw std::runtime_error("glfw could not be initialized"); }
+        if (!glfwInit()) { Log::throwRuntimeError("GLFW couldnt not be initialised!"); }
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         glfwWindowHint(GLFW_RESIZABLE, m_resizable);
 
         this->m_window = glfwCreateWindow(m_width, m_height, m_name.c_str(), nullptr, nullptr);
 
-        if (!this->m_window) { throw std::runtime_error("failed to create window"); }
+        if (!this->m_window) { Log::throwRuntimeError("Failed to create window"); }
     }
 }

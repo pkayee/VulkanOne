@@ -17,7 +17,6 @@ namespace vk_one {
         void init();
         void run();
 
-
     private:
         std::unique_ptr<Window> m_mainWindow;
     };
