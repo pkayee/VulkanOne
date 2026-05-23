@@ -1,8 +1,7 @@
 #pragma once
 
 #include <vk_one/engine/renderer/pch.h>
-#include <vk_one/engine/core/window.h>
-#include <vk_one/engine/renderer/physical_device.hpp>
+#include <vk_one/engine/renderer/instance.hpp>
 
 namespace vk_one {
     struct QueueFamilyIndices {
@@ -20,32 +19,42 @@ namespace vk_one {
     };
 
     class PhysicalDevice {
-        PhysicalDevice(Window &window);
-        ~PhysicalDevice();
+    public:
+        PhysicalDevice(Instance &instance);
 
+        ~PhysicalDevice();
         PhysicalDevice(const PhysicalDevice &) = delete;
         PhysicalDevice &operator=(const PhysicalDevice &) = delete;
+
         PhysicalDevice(const PhysicalDevice &&) = delete;
         PhysicalDevice &operator=(const PhysicalDevice &&) = delete;
 
-        SwapChainSupportDetails getSwapChainSupportDetails() { return  querySwapchainSupport(PhysicalDevice); }
-        QueueFamilyIndices findQueueFamilies();
+        SwapChainSupportDetails getSwapChainSupportDetails() { return querySwapChainSupport(m_physicalDevice); }
+
+        QueueFamilyIndices findQueueFamilies() { return findQueueFamilies(m_physicalDevice); }
+
         VkFormat findSupportedFormat(
             const std::vector<VkFormat> &candidates,
             VkImageTiling tiling,
             VkFormatFeatureFlags features
-            );
+        );
+
+        VkPhysicalDevice handle() { return m_physicalDevice; }
         VkPhysicalDeviceProperties properties;
+
     private:
         void pickPhysicalDevice();
+
         bool isDeviceSuitable(VkPhysicalDevice device);
+
         bool checkDeviceExtensionSupport(VkPhysicalDevice device);
+
         QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+
         SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
 
         VkPhysicalDevice m_physicalDevice = VK_NULL_HANDLE;
         VkInstance m_instance;
         VkSurfaceKHR m_surface;
-        Window &m_window;
     };
 }

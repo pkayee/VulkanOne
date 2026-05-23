@@ -22,10 +22,9 @@ namespace vk_one {
         void createSurface();
         bool checkValidationLayerSupport();
         void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
-        void hasGflwRequiredInstanceExtensions();
+        void hasGlfwRequiredInstanceExtensions();
 
         std::vector<const char *> getRequiredExtensions();
-        const std::vector<const char *> validationLayers = { "VK_LAYER_KHRONOS_validation" };
 
         VkInstance m_instance;
         VkDebugUtilsMessengerEXT m_debugMessenger;

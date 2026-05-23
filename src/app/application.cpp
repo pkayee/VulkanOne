@@ -1,12 +1,10 @@
-
-
 #include <memory>
 #include <GLFW/glfw3.h>
 #include <vk_one/app/application.h>
 
 namespace vk_one {
     void Application::init() {
-        auto& config = ConfigManager::instance();
+        auto &config = ConfigManager::instance();
         config.loadFromFile(CONFIG_PATH);
 
         m_mainWindow = std::make_unique<Window>(
@@ -21,6 +19,5 @@ namespace vk_one {
         while (!m_mainWindow->windowShouldClose()) {
             glfwPollEvents();
         }
-
     }
 }

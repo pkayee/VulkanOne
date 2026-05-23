@@ -1,22 +1,23 @@
 #include <vk_one/engine/renderer/instance.hpp>
 #include <vk_one/engine/utils.hpp>
+#include <vk_one/engine/renderer/constants.hpp>
 
 namespace vk_one {
     static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
-    VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-    VkDebugUtilsMessageTypeFlagsEXT messageType,
-    const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
-    void *pUserData) {
+        VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+        VkDebugUtilsMessageTypeFlagsEXT messageType,
+        const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
+        void *pUserData) {
         std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
         return VK_FALSE;
     }
 
     static VkResult createDebugUtilsMessengerEXT(
-    VkInstance instance,
-    const VkDebugUtilsMessengerCreateInfoEXT *pCreateInfo,
-    const VkAllocationCallbacks *pAllocator,
-    VkDebugUtilsMessengerEXT *pDebugMessenger) {
-        auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
+        VkInstance instance,
+        const VkDebugUtilsMessengerCreateInfoEXT *pCreateInfo,
+        const VkAllocationCallbacks *pAllocator,
+        VkDebugUtilsMessengerEXT *pDebugMessenger) {
+        auto func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(
             instance, "vkCreateDebugUtilsMessengerEXT");
         if (func != nullptr)
             return func(instance, pCreateInfo, pAllocator, pDebugMessenger);
@@ -24,10 +25,10 @@ namespace vk_one {
     }
 
     static void destroyDebugUtilsMessengerEXT(
-    VkInstance instance,
-    VkDebugUtilsMessengerEXT debugMessenger,
-    const VkAllocationCallbacks *pAllocator) {
-        auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
+        VkInstance instance,
+        VkDebugUtilsMessengerEXT debugMessenger,
+        const VkAllocationCallbacks *pAllocator) {
+        auto func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(
             instance, "vkDestroyDebugUtilsMessengerEXT");
         if (func != nullptr)
             func(instance, debugMessenger, pAllocator);
@@ -46,7 +47,7 @@ namespace vk_one {
     }
 
     void Instance::createInstance() {
-        auto& config = ConfigManager::instance();
+        auto &config = ConfigManager::instance();
         if (enableValidationLayers && !checkValidationLayerSupport()) {
             Log::throwRuntimeError("Cannot access validation layers!");
         }
@@ -82,15 +83,15 @@ namespace vk_one {
 
         auto extensions = getRequiredExtensions();
         createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
-        createInfo.ppEnabledExtensionNames = validationLayers.data();
+        createInfo.ppEnabledExtensionNames = Constants::validationLayers.data();
 
         VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo;
         if (enableValidationLayers) {
-            createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
-            createInfo.ppEnabledLayerNames = validationLayers.data();
+            createInfo.enabledLayerCount = static_cast<uint32_t>(Constants::validationLayers.size());
+            createInfo.ppEnabledLayerNames = Constants::validationLayers.data();
 
             populateDebugMessengerCreateInfo(debugCreateInfo);
-            createInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT *)&debugCreateInfo;
+            createInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT *) &debugCreateInfo;
         } else {
             createInfo.enabledLayerCount = 0;
             createInfo.pNext = nullptr;
@@ -101,7 +102,7 @@ namespace vk_one {
             "Instance.cpp: Failed to create instance!"
         );
 
-        hasGflwRequiredInstanceExtensions();
+        hasGlfwRequiredInstanceExtensions();
     }
 
     void Instance::createSurface() {
@@ -127,16 +128,16 @@ namespace vk_one {
         createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
         createInfo.messageSeverity =
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
-        |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+                VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
+                |
+                VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
 
         createInfo.messageType =
-            VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
-        |
-            VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
-        |
-            VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+                VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
+                |
+                VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
+                |
+                VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 
         createInfo.pfnUserCallback = debugCallback;
         createInfo.pUserData = nullptr;
@@ -149,10 +150,10 @@ namespace vk_one {
         std::vector<VkLayerProperties> availableLayers(layerCount);
         vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
 
-        for (const char *layerName : validationLayers) {
+        for (const char *layerName: Constants::validationLayers) {
             bool layerFound = false;
 
-            for (const auto& layerProperties : availableLayers) {
+            for (const auto &layerProperties: availableLayers) {
                 if (strcmp(layerName, layerProperties.layerName)) {
                     layerFound = true;
                     break;
@@ -161,6 +162,7 @@ namespace vk_one {
 
             if (!layerFound) return false;
         }
+        return true;
     }
 
     std::vector<const char *> Instance::getRequiredExtensions() {
@@ -174,16 +176,16 @@ namespace vk_one {
         return extensions;
     }
 
-    void Instance::hasGflwRequiredInstanceExtensions() {
+    void Instance::hasGlfwRequiredInstanceExtensions() {
         uint32_t extensionCount = 0;
         vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
         std::vector<VkExtensionProperties> extensions(extensionCount);
         vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 
         std::unordered_set<std::string> available;
-        for (const auto &ext : extensions) { available.insert(ext.extensionName); }
+        for (const auto &ext: extensions) { available.insert(ext.extensionName); }
 
-        for (const auto &required : getRequiredExtensions()) {
+        for (const auto &required: getRequiredExtensions()) {
             if (available.find(required) == available.end()) {
                 std::string requiredExtension = required;
                 Log::throwRuntimeError(
@@ -193,4 +195,3 @@ namespace vk_one {
         }
     }
 }
-

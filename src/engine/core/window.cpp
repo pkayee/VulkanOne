@@ -8,15 +8,16 @@
 
 namespace vk_one {
     Window::Window(int width, int height, bool resizable, const std::string &name)
-    : m_width(width), m_height(height), m_resizable(resizable), m_name(name) {
-    #ifdef DEBUG
+        : m_width(width), m_height(height), m_resizable(resizable), m_name(name) {
+#ifdef DEBUG
         Log::print("[===LOADING WINDOW===]");
 
         Log::print(std::format(
-            "Loaded window: '{}' Size: {}x{}",
-            m_name, m_width, m_height),
-        Log::Color::BLUE);
-    #endif
+                       "Loaded window: '{}' Size: {}x{}",
+                       m_name, m_width, m_height),
+                       Log::Color::BLUE
+        );
+#endif
         initWindow();
     }
 

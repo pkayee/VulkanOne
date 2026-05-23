@@ -3,6 +3,8 @@ project(VulkanOne)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_UNITY_BUILD ON)
+set(CMAKE_UNITY_BUILD_BATCH_SIZE 8)
 
 include(cmake_modules/compile_shaders.cmake)
 
@@ -14,7 +16,10 @@ set(SOURCE_DIRS
 )
 set(SOURCE_FILES "")
 
-add_executable(VulkanOne src/main.cpp)
+add_executable(VulkanOne src/main.cpp
+        src/engine/renderer/physical_device.cpp
+        src/engine/renderer/device.cpp
+)
 
 foreach (dir IN LISTS SOURCE_DIRS)
     file(GLOB local_files CONFIGURE_DEPENDS "${dir}/*.cpp")
@@ -43,7 +48,7 @@ target_link_libraries(VulkanOne
 target_precompile_headers(VulkanOne PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/vk_one/engine/renderer/pch.h)
 
 target_compile_definitions(VulkanOne PRIVATE
-        CONFIG_PATH="${CMAKE_SOURCE_DIR}/src/engine/configs.json"
+        CONFIG_PATH="${CMAKE_CURRENT_SOURCE_DIR}/src/engine/configs.json"
 )
 
 target_compile_definitions(VulkanOne PUBLIC DEBUG)

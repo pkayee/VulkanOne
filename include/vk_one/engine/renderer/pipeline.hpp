@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vk_one/engine/renderer/pch.h>
+#include <vk_one/engine/renderer/device.hpp>
 
 namespace vk_one {
 
@@ -49,9 +50,9 @@ namespace vk_one {
 
         void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
 
-        Device& device;
-        VkPipeline graphicsPipeline;
-        VkShaderModule vertShaderModule;
-        VkShaderModule fragShaderModule;
+        Device& m_device;
+        VkPipeline m_graphicsPipeline;
+        VkShaderModule m_vertShaderModule;
+        VkShaderModule m_fragShaderModule;
     };
 }

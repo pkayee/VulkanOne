@@ -1,8 +1,9 @@
 #pragma once
 
-
-
-#include <vk_one/engine/renderer/pch.h>
+#include <iostream>
+#include <random>
+#include <sstream>
+#include <unordered_map>
 
 namespace vk_one {
 #ifdef DEBUG
@@ -30,9 +31,13 @@ namespace vk_one {
         static void warn(const std::string& msg, Color color = Color::YELLOW) {
             std::cerr << resolveColor(color, msg) << "[WARN] " << msg << RESET << "\n";
         }
-
         static void error(const std::string& msg, Color color = Color::RED) {
             std::cerr << resolveColor(color, msg) << "[ERROR] " << msg << RESET << "\n";
+        }
+
+        static void assertLog(bool result, const std::string& msg, Color color = Color::RED) {
+            std::cerr << "[ASSERT_ERROR] ";
+            assert(result && msg);
         }
 
         static void throwRuntimeError(
@@ -104,8 +109,9 @@ namespace vk_one {
         }
     };
 
-    inline void VK_CHECK_SUCCESS(VkResult result, const char* message) {
-        if (result != VK_SUCCESS) {
+    template<typename T>
+    void VK_CHECK_SUCCESS(T result, const char* message) {
+        if (static_cast<int>(result) != 0) {
             Log::throwRuntimeError(message);
         }
     }

@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <vk_one/engine/utils.hpp>
 #include <nlohmann/json.hpp>
 
@@ -21,7 +20,7 @@ namespace vk_one {
         bool loadFromFile(const std::string& filePath) {
             std::ifstream file(filePath);
             if (!file.is_open()) {
-                std::cerr << "Config Error: Could not open " << filePath << "\n";
+                Log::warn(std::format("Config Error: could not open '{}'", filePath));
                 return false;
             }
 
@@ -29,7 +28,7 @@ namespace vk_one {
             try {
                 file >> rootJson;
             } catch (const nlohmann::json::parse_error& e) {
-                std::cerr << "Config JSON Parse Error: " << e.what() << "\n";
+                Log::warn(std::format("Config JSON Parse Error: {}", e.what() ));
                 return false;
             }
 
@@ -74,11 +73,11 @@ namespace vk_one {
 
             if (!std::holds_alternative<T>(it->second)) {
                 if (defaultValue.has_value()) {
-                    std::cerr << "Config: type mismatch for '" << key << "', using default\n";
+                    Log::warn(std::format("Config: type mismatch for '{}' using default.", key));
                     return defaultValue.value();
                 }
 
-                Log::throwRuntimeError("Config: type mismatch for '" + key + "'");
+                Log::throwRuntimeError(std::format("Config: type mismatch for '{}'", key));
             }
 
             return std::get<T>(it->second);

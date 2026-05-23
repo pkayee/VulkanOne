@@ -9,6 +9,6 @@ int main() {
         app.init();
         app.run();
     } catch (const std::exception &e) {
-        std::cerr << e.what();
+        vk_one::Log::warn(e.what());
     }
 }
